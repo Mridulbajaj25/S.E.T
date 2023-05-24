@@ -1,0 +1,25 @@
+<html>
+<body>
+
+
+<h1>Image Answer Example</h1>
+
+<p>Select an option:</p>
+<select id="dlist" onChange="swapImage()">
+<option value="1.png">Option 1</option>
+<option value="2.png">Option 2</option>
+<option value="3.png">Option 3</option>
+</select>
+
+<script type="text/javascript">
+function swapImage(){
+	var image = document.getElementById("imageToSwap");
+	var dropd = document.getElementById("dlist");
+	image.src = dropd.value;	
+};
+</script>
+<br/><br/>
+<img id="imageToSwap" src="CHOOSE.png" />
+
+</body>
+</html>
