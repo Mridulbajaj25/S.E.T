@@ -16,13 +16,20 @@ void setup() {
   pinMode (4,OUTPUT);    //g
   pinMode (3,OUTPUT);    //r
   pinMode (2,OUTPUT);    //g
-  pinMode (A0,OUTPUT);    //r
+  pinMode (0,OUTPUT);    //r
+
   Serial.begin(9600);    // Initialize serial communications with the PC
+
   while (!Serial);       // Do nothing if no serial port is opened (added for Arduinos based on ATMEGA32U4)
+
   SPI.begin();           // Init SPI bus
+
   mfrc522.PCD_Init();    // Init MFRC522
+
   delay(4);              // Optional delay. Some board do need more time after init to be ready, see Readme
+
   mfrc522.PCD_DumpVersionToSerial();  // Show details of PCD - MFRC522 Card Reader details
+
   Serial.println(F("Scan PICC to see UID, SAK, type, and data blocks..."));
   
 }
@@ -30,7 +37,6 @@ void setup() {
 void loop() {
 
   
-
   if ( ! mfrc522.PICC_IsNewCardPresent()) {
   
    return (0);
@@ -47,60 +53,59 @@ void loop() {
   digitalWrite (4,HIGH);
   digitalWrite (5,HIGH);
   digitalWrite (7,HIGH);
-  digitalWrite (A0,HIGH);
+  digitalWrite (0,HIGH);
   digitalWrite (8, LOW);
   digitalWrite (6, LOW);
-   digitalWrite (3, LOW);
-   digitalWrite (2, LOW);
+  digitalWrite (3, LOW);
+  digitalWrite (2, LOW);
    
-    
- }else {
-   Serial.println("Access Denied");
-  }
- if (mfrc522.uid.uidByte[0] == ACCESSUID[0] && mfrc522.uid.uidByte[1] == ACCESSUID[1] && mfrc522.uid.uidByte[2] == ACCESSUID[2] && mfrc522.uid.uidByte[3] == ACCESSUID[3] ){
+     
+ }
+ else if (mfrc522.uid.uidByte[0] == ACCESSUID[0] && mfrc522.uid.uidByte[1] == ACCESSUID[1] && mfrc522.uid.uidByte[2] == ACCESSUID[2] && mfrc522.uid.uidByte[3] == ACCESSUID[3] ){
    Serial.println("Access Granted");
 
-    digitalWrite (8,HIGH);
+  digitalWrite (8,HIGH);
   digitalWrite (5,HIGH);
   digitalWrite (3,HIGH);
-  digitalWrite (A0,HIGH);
-   digitalWrite (2, LOW);
-   digitalWrite (7, LOW);
-   digitalWrite (4, LOW);
+  digitalWrite (0,HIGH);
+  digitalWrite (2, LOW);
+  digitalWrite (7, LOW);
+  digitalWrite (4, LOW);
   
   delay(4000);
 
-   digitalWrite (6,HIGH);
+  digitalWrite (6,HIGH);
   digitalWrite (7,HIGH);
   digitalWrite (3,HIGH);
-  digitalWrite (A0,HIGH);
+  digitalWrite (0,HIGH);
   digitalWrite (5, LOW);
   digitalWrite (8, LOW);
   digitalWrite (4, LOW);
   delay(4000);
 
-   digitalWrite (4,HIGH);
+  digitalWrite (4,HIGH);
   digitalWrite (5,HIGH);
   digitalWrite (7,HIGH);
-  digitalWrite (A0,HIGH);
-  digitalWrite (8, LOW);
-  digitalWrite (6, LOW);
-   digitalWrite (3, LOW);
+  digitalWrite (0,HIGH);
+  digitalWrite (8,LOW);
+  digitalWrite (6,LOW);
+  digitalWrite (3,LOW);
   
   delay(4000);
 
-   digitalWrite (2,HIGH);
+  digitalWrite (2,HIGH);
   digitalWrite (5,HIGH);
   digitalWrite (3,HIGH);
   digitalWrite (7,HIGH);
-  digitalWrite (4, LOW);
-  digitalWrite (A0, LOW);
+  digitalWrite (4,LOW);
+  digitalWrite (0,LOW);
     
-}  else {
+  delay(400);
+
+ }  else {
    Serial.println("Access Denied");
   }
   
- 
 
   mfrc522.PICC_HaltA();
 }
